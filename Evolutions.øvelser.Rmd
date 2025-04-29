@@ -1,0 +1,84 @@
+---
+title: "Evolutions øvelser"
+author: "esmaralda"
+date: "2025-04-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Fylogeni
+
+### Fylogenetiske termer
+
+**Evolutionær afstand (tidsperspektivet):** Afstand (fæno- eller genotypisk adskillelse) mellem to eller flere arter, populationer som følge af ændringer over tid.
+
+**Evolutionær historie,fylogeni:** Arter, populationers evolutionære relationer via deres fælles stamform. Ofte vist i form af et stamtræ (et diagram)
+
+**Evolutionær gren (linje):** afspejler den evolutionære tid mellem fx sidste fælles stamform og et terminal taxon. Grenens længde viser den tid, som er gået siden sidste fælles stamform.
+
+**Forgreningsmønster (fuldt, delvist eller uopløst stamtræ):** Stamtræets bud på hvordan organismer er beslægtede med hinanden.
+
+**Forgreningspunkt:** En stamform splittes i to evolutionære linjer (kan give anledning til artsdannelse).
+
+**Fælles stamform:** En (uddød) stamform, som har givet ophav til nye evolutionære linjer og dermed nye arter, populationer.
+
+Ikke monofyletisk gruppe En evolutionær gruppe (taxon), som udgøres af organismer, der ikke har en fælles stamform (kan ikke klippes bort med et enkelt klip). Karakter og karaktertilstand Et træk i form af en fæno- eller genotypisk karakter. Disse træk kan være udtrykt i forskellige tilstande fx farven på fjer. Fjer er karakteren og farven er karaktertilstanden. Kladogram versus fylogram Når forgreningsmønstret i et stamtræ vises uden hensyntagen til den evolutionære tid kaldes det et kladogram. Hvis der derimod tages hensyn til den evolutionære tid kaldes stamtræet et fylogram.
+
+![](images/Screenshot%202025-04-29%20094306.jpg)
+
+![](images/clipboard-2235738771.png)
+
+**Homologi:** ens karaktertræk, som er nedarvet fra en fælles stamform (evolutionært signal)
+
+**Analogi:** ens kararaktertræk, men er opstået ved konvergent evolution hos ikke monofyletiske grupper (taxon).
+
+**konvergent evolution / Homoplasi:** konvergent udvikling eller reduktion af ensartede strukturer forårsaget af ensartet selektionstryk (evolutionært støj).
+
+**Karakterer (characters):** (fx tæer).
+
+**Karaktertilstande (character states):** (fx antallet af tæer)
+
+**Epistase:** at en gen kontrollerer/ændrer et andet gens udtryk.
+
+**Klinal variation (clinal variation):** variation af population langs en gradient som fx en bjergskråning eller en temperaturgradient.
+
+**r-selekterende:** organismer med stor formeringsevne, kort livscyklus, minimal yngelpleje. formerer sig med eksponentiel hastighed. Findes typisk i pionærsamfund.
+
+k-selekterende: organismer der investerer meget i afkom og sig selv. Lang livscyklus. Findes typisk i klimaxsamfund.
+
+Liv: "Liv er systemer med metabolisme"
+
+## Opgaver
+
+### Opg 1 (mutationer i DNA sekvenser)
+
+$2$ arter blev splittet op for $T$ år siden. Med en mutationsrate $\mu$ (per site pr år) forventer vi at der i hver linje for en sekvens, der er $L$ baser lang, vil være opstået $\mu TL$ mutationer. Vi antager at der ikke forekommer 2 muationer på samme position. Det totale antal nukleotidforskelle mellem de to sekvenser er givet ved $D=2 \mu TL$ hvor to-tallet skyldes at der akkumuleres mutationer i hver af de to linjer.
+
+Kendes mutationsraten for et gen, kan man gennem forskelle i antallet af nukleotider mellem de to sekvenser beregne hvor lang tid siden de splittedes ad. $T=D/(2 \mu L)$
+
+**1.1. Bestemmelse af alderen på en hidtil ukendt menneskeart.**
+
+```{r}
+L <- 16570 #længden af hele mitokondriegenomets basepar
+D <- 385 #gns antal forskelle
+mu <- 1.1e-8 #gns mutationsrate pr base pr år for humane genomer
+
+#Beregn tiden for opsplitningen
+T <- D / (2 * mu * L)
+
+#Omregner til videnskabelig notation
+T_sprintf <- sprintf("%.3e",T) #med 3 decimaler
+
+print(T_sprintf)
+```
+
+**svar 1.1. det er** $1.06*10^6$ millioner år siden denne menneskeart og mennesket opssplittede.
+
+**1.2. hvorfor er det mitokondrielle gener man ofte ser sekventeret fra gamle prøver?** **- svar Mitokondrielle gener (mtDNA) nedarves næsten kun udelukkende maternelt, (hos visse nåle træer paternelt, og det sker også fra tid til andet hos mennesker, men dette er meget sjældent). mtDNA nedarves som fra individ til individ gennem generationer som en enkelt enhed(haplotype).**
+
+### Opg 2 ( Variation i et autosomalt locus med dominans mellem allelerne)
+
+-   opgaven illustrere basale forskelle mellem mendelsk genetik baseret på kontrollerede forsøg og på observationer i naturlige populationer

@@ -1,0 +1,165 @@
+---
+title: "øveark.1"
+author: "esmaralda"
+date: "2025-04-22"
+output: html_document
+---
+
+man definerer gennem \<-
+
+en vector laves ved c() og elementerne i vectoren adskilles af komma. Eks. num.vector \<- c(1,10,2,3) chr.vector \<- c("kat","hund","ko") en vector har en dimention.
+
+Dataframes har to dimentioner, og kan blande forskellige datatyper, og minder om en matrix, men matrix kan KUN bruges til at lave matematiske operationer. i kurset bruger vi primært dataframes (kaldes tibbles i tidyverse)
+
+Basis
+
+```{r}
+x<-2 #x er defineret som 2
+x <- 4
+a<-5
+b<-a+x
+v.t <- c(1,2,3,4,5)
+is.numeric(v.t)
+v.o <- c("hund","kat","ko","ko","hund")
+is.character(v.o)
+v.o
+
+v.o <- as.factor(v.o)
+is.factor(v.o)
+v.o
+
+mydf <- data.frame("personID"=1:5, "height"=c(140,187,154,132,165), "age"=c(34,31,25,43,29))
+mydf
+#man kan få adgang til variabler i en dataframe gennem $
+mydf$personID
+
+hinge <- data.frame("dude"=1:5,"age"=c(29,31,24,28,29),"forholdstype"=c("monogam","non-monogam","monogam","monogam","monogam"))
+hinge$height <- c(178,199,198,175,171)
+
+hinge[hinge$dude %in% c(1,3,4),]
+hinge[!(hinge$dude %in% c(1,3,4)),]
+
+
+
+
+```
+
+```{r}
+#opg 8 delmængde af dataframes
+#abc[række indekser, kolonne indekser]
+
+data("ToothGrowth")
+?ToothGrowth
+
+abc <- ToothGrowth[ToothGrowth$supp == "OJ" & ToothGrowth$len > 15,]
+
+#antal rækker i abc
+n_rækker <- nrow(abc)
+print(n_rækker)
+
+#antal unikke værdier i dose
+unikke_doser <- length(unique(ToothGrowth$dose))
+print(unikke_doser)
+
+#delmængde af Toothgrowth hvor variablen dose er 0.5 eller 2.0 og supp er VC
+delmængde <- ToothGrowth[ToothGrowth$dose %in% c(0.5,2.0) & ToothGrowth$supp =="VC",]
+
+#beregn den gennemsnitlige længde i delmængden
+gns_længde <- mean(delmængde$len)
+print(gns_længde)
+
+#jeg er færdig med opgave 8, men jeg vil gerne visualisere det lidt. Jeg tester 4 forskellige visualiseringstyper ud
+
+
+library(ggplot2)
+
+#scatter plot
+ggplot(ToothGrowth, aes(x=dose, y=len, color=supp)) +
+  geom_point() +
+  labs(title="Tooth Growth by Dose and Supplement",
+       x="Dose (mg)",
+       y="Tooth Length (mm)") +
+  theme_minimal()
+
+#boxplot
+ggplot(ToothGrowth, aes(x=factor(dose), y=len, fill=supp)) +
+  geom_boxplot() +
+  labs(title="Boxplot of Tooth Length by Dose and Supplement",
+       x="Dose (mg)",
+       y="Tooth Length (mm)") +
+  theme_classic()
+
+#violin plot
+ggplot(ToothGrowth, aes(x=factor(dose), y=len, fill=supp)) +
+  geom_violin() +
+  labs(title="Violin Plot of Tooth Length by Dose and Supplement",
+       x="Dose (mg)",
+       y="Tooth Length (mm)") +
+  theme_minimal()
+
+
+#co plot
+coplot(len ~ dose | supp, data=ToothGrowth, 
+       panel = panel.smooth, 
+       xlab = "Dose (mg)", 
+       ylab = "Tooth Length (mm)")
+```
+
+```{r}
+#1.12.3 Kort analyse med reaktionstider
+
+#opg 9 (indlæse data)
+
+
+
+data <- read.table("reactions.txt", header=T)
+
+head(data)
+
+#10 (factor variabler)
+data$subject <- as.factor(data$subject)
+
+data$time <- as.factor(data$time)
+
+nlevels(data$subject)
+
+nlevels(data$time)
+
+#11 (delmængder af dataframes)
+
+
+
+RT_before <- data[data$time == "before",]
+
+RT_after <- data[data$time == "after",]
+
+#delmængde for obs fra before med en reaktionstid på mindst 800
+RT_before_mindst800 <- RT_before[RT_before$RT >=800,]
+
+antal_personer <- nrow(RT_before_mindst800)
+
+#17 (korrelationsanalyse)
+
+data("trees")
+summary(trees)
+
+cor.test(trees$Girth, trees$Volume, method="pearson")
+
+#p-værdien er meget lavere end 0,05, og indikerer derfor statistisk signifikant korrelation mellem de to variable Girth and volume. når der står 2.2e-16 så tilføjer jeg 15 nultaller foran koeficenten 2.2.
+
+#cor (korrealtions koefficenten) er 0,967. Hvis cor er  tæt på 1 eller -1 indikerer stærkt forhold, imens en værdi tæt på 0 indikerer et svagt forhold
+
+data(trees)
+
+log_volume <- log(trees$Volume)
+
+result <- cor.test(trees$Girth, log_volume, method="pearson")
+
+print(result)
+
+#korrelationen mellem girth og log_volume er 0,9671
+
+# da p-værdien er 2.2e-16, er den signifikant. P-værdien er sandsynligheden for at observere et resultat lige så ekstremt eller mere ekstremt end det observerede, givet at nulhypotesen er sand. p-værdien her er langt under det valgte signifikans niveau på 0,5, og er derfor signifikant.
+
+
+```

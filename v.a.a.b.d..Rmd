@@ -1,0 +1,185 @@
+---
+title: "v.o.a.a.b.d"
+author: "esmaralda"
+date: "2025-04-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Headers:
+
+Headers are made with \# signs. 1 = \# , 2 = \## and so on.
+
+### Skrifttyper:
+
+*italic* **bold**
+
+### Lists:
+
+-   1
+-   2
+    -   2a
+    -   2b
+
+### LaTex / ligninger:
+
+$\int_0^5 x^2 dx$
+
+$y=2.4x + 2.1$
+
+$H0: \mu = 0$
+
+$\pi$ $\alpha$ $\beta$ $\gamma$ $\sigma$ $\epsilon$ 
+
+$90^\circ$
+
+### Numeric numbers:
+
+`5` `6.4`
+
+### Confidence interval:
+
+$(\hat{theta} \pm z \cdot \text{SE})$ where \hat{\theta} is the estimate, z is the z-score, and \text{SE} is the standard error.
+
+### Inequalities:
+
+Less than: $x < y$ Greater than: $x > y$ Less than or equal to: $x \leq y$ Greater than or equal to: $x \geq y$
+
+### Fractions:
+
+$\frac{a}{b}$
+
+### Subscripts and Superscripts:
+
+$x_i$ $x^2$
+
+# library(ggplot2)
+
+**Komponenter der bruges til at opbygge et plot:**
+
+***Data:*** Datarammer tages altid som udgangspunkt.
+
+***Aesthetics:*** Variabler til x-aksen eller y-aksen, farve, form eller størrelse
+
+***Scale:*** Skalering af værdier eller repræsentation af flere værdier.
+
+***Geometries:*** Også kaldet geoms - bestemmer hvilken type plot, der skal laves, som f.eks. søjler, punkter, linjer osv.
+
+***Statistics:*** Tilføjer f.eks. mean, median eller kvartiler, som beskriver dataene.
+
+***Facets:*** Opretter subplots baseret på flere dimensioner.
+
+***Coordinate system:*** Transformerer akser og ændrer afstanden for de viste data.
+
+# Geoms
+
+## geom_point
+
+```{r}
+
+library(ggplot2)
+
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = F) +  
+  labs(title = "Sepal Length vs. Sepal Width",
+       x = "Sepal Length (cm)", 
+       y = "Sepal Width (cm)",  
+       color = "Species") +  
+  theme_minimal()  
+```
+
+```{r}
+ggplot(data=iris, aes(x=Petal.Length, y=Petal.Width, color=Species))+
+  geom_point()+
+  geom_smooth(method="lm", se=F)+
+  labs(title= "Iris petal length vs petal width",
+       x="Petal length (cm)",
+       y= "Petal width (cm)",
+       color = "species")+
+  theme_minimal()
+```
+
+## geom_bar
+
+```{r}
+
+#Tilføjer en ekstra katagorisk variabel som grupperer sepal.length værdier i long og short. 
+iris$Sepal.Group <- 
+  ifelse(iris$Sepal.Length>mean(iris$Sepal.Length),  
+         "Long",                                     
+         "Short")  
+ggplot(iris, aes(x=Species, fill=Sepal.Group)) + 
+  geom_bar(stat = "count", position = position_dodge2(preserve = "single")) +
+  ggtitle("Number of observations by species") +
+  theme_minimal()
+
+```
+
+## geom_boxplot
+
+```{r}
+ggplot(iris, aes(x=Species, y=Sepal.Length, fill=Species))+
+  geom_boxplot()+
+  geom_jitter(alpha=0.5, width=0.2)+
+  ylab("sepal length (cm)")+
+  ggtitle("Boxplot") +
+  theme_minimal()
+
+
+```
+
+## geom_histogram
+
+```{r}
+ggplot(data=iris, aes(x=Sepal.Length, fill=Species)) + 
+  geom_histogram(alpha=0.2,color="black",) + 
+  xlab("Sepal Length") + 
+  ggtitle("Iris histogram") + 
+  theme_minimal()
+```
+
+## geom_density
+
+```{r}
+
+#tapply bruges til at beregne middelværdierne af x
+means <-tapply(iris$Sepal.Length,iris$Species,median)
+
+ggplot(iris, aes(x=Sepal.Length, fill=Species))+
+  geom_density(alpha=0.5)+
+  xlab("Sepal length")+
+  ggtitle("Density plot with alpha=0.5")+
+  geom_vline(xintercept = means,lty=2)+ #geom_vline for vertikale linjer (geom_hline for horisontale linjer). lty større end 1 for stiblet linje.
+  theme_minimal()
+```
+
+## geom_line
+
+```{r}
+library(tidyr)
+data("population")
+pop_scand <- population[population$country %in% c("Denmark","Sweden","Norway","Finland"),]
+head(pop_scand)
+
+#Da Populations værdierne er ret store, normalisere jeg dem så de betegner populationer i millioner
+pop_scand$pop <- pop_scand$population/1e06
+
+ggplot(data=pop_scand, aes(x=year,y=population,group=country, color=country))+
+  geom_line(linewidth=0.9)+
+  labs(title="Populations in scandinavia over time", 
+       x="year", 
+       y="Population size in millions")+
+  theme_minimal()
+
+
+```
+
+```{r}
+
+```
+
+\`\`\`
