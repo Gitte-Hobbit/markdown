@@ -7,6 +7,10 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+install.packages("installr")
+library(installr)
+updateR()
+R.version.string
 ```
 
 ### Headers:
@@ -32,7 +36,7 @@ $y=2.4x + 2.1$
 
 $H0: \mu = 0$
 
-$\pi$ $\alpha$ $\beta$ $\gamma$ $\sigma$ $\epsilon$ 
+$\pi$ $\alpha$ $\beta$ $\gamma$ $\sigma$ $\epsilon$
 
 $90^\circ$
 
@@ -149,12 +153,15 @@ ggplot(data=iris, aes(x=Sepal.Length, fill=Species)) +
 #tapply bruges til at beregne middelværdierne af x
 means <-tapply(iris$Sepal.Length,iris$Species,median)
 
-ggplot(iris, aes(x=Sepal.Length, fill=Species))+
+ggplot(data=iris, aes(x=Sepal.Length, fill=Species))+
   geom_density(alpha=0.5)+
   xlab("Sepal length")+
   ggtitle("Density plot with alpha=0.5")+
-  geom_vline(xintercept = means,lty=2)+ #geom_vline for vertikale linjer (geom_hline for horisontale linjer). lty større end 1 for stiblet linje.
+  geom_vline(xintercept = means,lty=2)+
+  facet_grid(~ Species)+
+  #geom_vline for vertikale linjer (geom_hline for horisontale linjer). lty større end 1 for stiblet linje.
   theme_minimal()
+
 ```
 
 ## geom_line
@@ -183,3 +190,43 @@ ggplot(data=pop_scand, aes(x=year,y=population,group=country, color=country))+
 ```
 
 \`\`\`
+
+```{r}
+colour <- c("blue","green","blue","pink","orange", "green")
+ifelse("blue" %in% colour, "is blue", "is not blue")
+
+```
+
+## manipulation
+
+```{r}
+library(ggplot2)
+
+
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +  
+  labs(title = "Sepal Length vs. Sepal Width Faceted",
+       x = "Sepal Length (cm)", 
+       y = "Sepal Width (cm)",  
+       color = "Species") +  
+  theme_minimal() +
+  facet_grid(. ~ Species) 
+
+```
+
+```{r}
+install.packages("tidyverse")
+
+library(tidyverse)
+```
+
+## tidyverse
+
+Tidyverse er en samling af 8 pakker i R, og man bruger pipe %\>% til at kæde forskellige funktioner sammen.
+
+![](images/clipboard-2113177057.png){width="438"}
+
+### tidy data
+
+For at betragte et datasæt som "tidy" skal det opfylde tre kriterier: \* Hver variabel har sin egen kollone. \* Hver observation har sin egen række. \* Hver værdi har sin egen celle.
