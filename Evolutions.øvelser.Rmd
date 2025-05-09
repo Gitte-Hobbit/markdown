@@ -23,7 +23,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 **Forgreningspunkt:** En stamform splittes i to evolutionære linjer (kan give anledning til artsdannelse).
 
-**Fælles stamform:** En (uddød) stamform, som har givet ophav til nye evolutionære linjer og dermed nye arter, populationer.
+**Fælles stamform:** En (uddød) stamform, som har givet ophav til nye evolutionære linjer og dermed nye arter, populationer. Jo flere fælles stamformer, jo tættere er slægtskabet. Fx er frøer tættere beslægtede med mennesker end fisk, da frøer og mennesker deler den seneste fælles stamform.
+
+**Fylogeni:** stamtræ. Tjener som grundlag for biologisk klassifikation (taksonomi).
+
+OTU: terminale arter (nulevende)
 
 Ikke monofyletisk gruppe En evolutionær gruppe (taxon), som udgøres af organismer, der ikke har en fælles stamform (kan ikke klippes bort med et enkelt klip). Karakter og karaktertilstand Et træk i form af en fæno- eller genotypisk karakter. Disse træk kan være udtrykt i forskellige tilstande fx farven på fjer. Fjer er karakteren og farven er karaktertilstanden. Kladogram versus fylogram Når forgreningsmønstret i et stamtræ vises uden hensyntagen til den evolutionære tid kaldes det et kladogram. Hvis der derimod tages hensyn til den evolutionære tid kaldes stamtræet et fylogram.
 
@@ -41,15 +45,27 @@ Ikke monofyletisk gruppe En evolutionær gruppe (taxon), som udgøres af organis
 
 **Karaktertilstande (character states):** (fx antallet af tæer)
 
+**Plesiomorfier:** fælles oprindellige karakterer
+
+**Synapmorfier:** fælles afledte karakterer
+
+**Autapomorfier:** unikke afledte karakterer.
+
 **Epistase:** at en gen kontrollerer/ændrer et andet gens udtryk.
 
 **Klinal variation (clinal variation):** variation af population langs en gradient som fx en bjergskråning eller en temperaturgradient.
 
 **r-selekterende:** organismer med stor formeringsevne, kort livscyklus, minimal yngelpleje. formerer sig med eksponentiel hastighed. Findes typisk i pionærsamfund.
 
-k-selekterende: organismer der investerer meget i afkom og sig selv. Lang livscyklus. Findes typisk i klimaxsamfund.
+**k-selekterende:** organismer der investerer meget i afkom og sig selv. Lang livscyklus. Findes typisk i klimaxsamfund.
 
-Liv: "Liv er systemer med metabolisme"
+**Liv:** "Liv er systemer med metabolisme"
+
+## Hvem er tættest beslægtet?
+
+![](images/clipboard-2904993911.png)
+
+![](images/clipboard-2632684691.png)
 
 ## Opgaver
 
